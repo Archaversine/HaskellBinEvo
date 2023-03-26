@@ -1,6 +1,6 @@
 # Haskell Binary String Evolution
 
-See writeup here: [Writeup](https://medium.com/knoxcs/binary-string-evolution-in-haskell-574afbbcdc59) 
+See writeup [here](https://medium.com/knoxcs/binary-string-evolution-in-haskell-574afbbcdc59).
 
 ## Problem
 
