@@ -105,8 +105,12 @@ main = do
         totalDiffSquared = sum $ map (\x -> (x - mean) ^ 2) floats
         deviation = sqrt $ totalDiffSquared / fromIntegral iterations
 
+    putStrLn "--------------------------------------------"
+    putStrLn $ "Minimum: " ++ show (minimum results)
+    putStrLn $ "Maximum: " ++ show (maximum results)
     putStrLn $ "Average: " ++ show mean
     putStrLn $ "Standard Deviation: " ++ show deviation
+    putStrLn "--------------------------------------------"
 
     where go 0 acc = acc
           go n acc = do
