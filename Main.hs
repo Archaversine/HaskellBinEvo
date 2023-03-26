@@ -55,7 +55,7 @@ cross p1 p2 = do
     return $ (p1 .&. crossMask) .|. (p2 .&. complement crossMask)
 
 mutate :: Genome -> IO Genome
-mutate g = go 20 $ return g
+mutate g = go 20 (pure g)
     where go 0 acc = acc
           go n acc = do
             r <- randomRIO (0, 1) :: IO Float
