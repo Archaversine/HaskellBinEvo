@@ -1,5 +1,7 @@
 # Haskell Binary String Evolution
 
+See writeup here: [Writeup](https://medium.com/knoxcs/binary-string-evolution-in-haskell-574afbbcdc59) 
+
 ## Problem
 
 Evolve the largest number you can represent with a 20-bit string.
