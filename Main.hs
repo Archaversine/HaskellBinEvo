@@ -5,7 +5,7 @@ import Data.Bits (shiftL, shiftR, xor, complement, (.|.), (.&.))
 import Data.List (sortBy)
 import Data.Functor ((<&>))
 
-import Control.Monad (replicateM, forM_)
+import Control.Monad (replicateM)
 
 import System.Random (randomRIO)
 
