@@ -46,7 +46,7 @@ When parents are selected from the population, a roulette selection is used to
 bias the selection towards candidates with a higher fitness.
 
 To create the next generation, two parents are selected from the population,
-crossed, and then mutated which yeilds the child for the next generation.
+crossed, and then mutated which yields the child for the next generation.
 
 ## Results
 
