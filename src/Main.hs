@@ -1,7 +1,7 @@
 module Main (main) where
 
 import Data.Word (Word32)
-import Data.Bits (shiftL, shiftR, xor, complement, (.|.), (.&.))
+import Data.Bits (shiftL, shiftR, xor, complement, popCount, (.|.), (.&.))
 import Data.List (sortBy)
 import Data.Functor ((<&>))
 
@@ -11,9 +11,11 @@ import System.Random (randomRIO)
 
 type Genome = Word32
 type Population = [Genome]
-type ScoredPopulation = [(Genome, Float)]
+type ScoredPopulation = [(Genome, Double)]
 
 -- Variables
+
+-- Infinite list of all primes numbers
 
 -- Number where only 20/32 bits are 1
 -- Used to set max limit for random generation
@@ -24,12 +26,12 @@ population :: Int
 population = 500
 
 generations :: Int
-generations = 500
+generations = 30
 
 iterations :: Int
 iterations = 30
 
-mutationChance :: Float
+mutationChance :: Double
 mutationChance = 0.001
 
 -- Debugging Functions
@@ -47,6 +49,9 @@ genRandomGenome = randomRIO (0, mask)
 genInitialPopulation :: IO Population
 genInitialPopulation = replicateM population genRandomGenome
 
+fitness :: Genome -> Double
+fitness = fromIntegral . popCount
+
 cross :: Genome -> Genome -> IO Genome
 cross p1 p2 = do
     crossPoint <- randomRIO (0, 20) :: IO Int
@@ -55,17 +60,17 @@ cross p1 p2 = do
     return $ (p1 .&. crossMask) .|. (p2 .&. complement crossMask)
 
 mutate :: Genome -> IO Genome
-mutate g = go 20 (pure g)
-    where go 0 acc = acc
-          go n acc = do
-            r <- randomRIO (0, 1) :: IO Float
-            if r > mutationChance then go (n - 1) acc
-                else go (n - 1) $ acc <&> (`xor` (1 `shiftL` (n - 1)))
+mutate g = do
+    r <- randomRIO (0, 1) :: IO Double
+    point <- randomRIO (0, 10) :: IO Int
+
+    if r > mutationChance then return g
+        else return $ g `xor` (1 `shiftL` point)
 
 -- Cannot handle empty list as input
-selectFromPopulation :: ScoredPopulation -> Float -> IO Genome
+selectFromPopulation :: ScoredPopulation -> Double -> IO Genome
 selectFromPopulation scored totalFitness = do
-    r <- randomRIO (0, 1) :: IO Float
+    r <- randomRIO (0, 1) :: IO Double
     return $ go (r * totalFitness) scored
         where go _ [] = undefined
               go _ [(x, _)] = x
@@ -79,7 +84,7 @@ reproduce p = replicateM population $ do
     p2 <- selectFromPopulation scored totalFitness
 
     cross p1 p2 >>= mutate
-        where summed = scanl1 (+) $ map fromIntegral p :: [Float]
+        where summed = scanl1 (+) $ map fitness p :: [Double]
               scored = zip p summed
               totalFitness = last summed
 
@@ -100,9 +105,9 @@ main = do
 
     results <- go iterations (pure [])
 
-    let floats = map fromIntegral results :: [Float]
+    let floats = map fromIntegral results :: [Double]
         mean = sum floats / fromIntegral iterations
-        totalDiffSquared = sum $ map (\x -> (x - mean) ^ 2) floats
+        totalDiffSquared = sum $ map (\x -> (x - mean) * (x - mean)) floats
         deviation = sqrt $ totalDiffSquared / fromIntegral iterations
 
     putStrLn "--------------------------------------------"
