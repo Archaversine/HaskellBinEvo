@@ -104,16 +104,16 @@ main = do
     putStrLn "--------------------------------------------"
 
     results <- go iterations (pure [])
-
-    let floats = map fromIntegral results :: [Double]
-        mean = sum floats / fromIntegral iterations
-        totalDiffSquared = sum $ map (\x -> (x - mean) * (x - mean)) floats
+    
+    let fitnesses = map fitness results
+        mean = sum fitnesses / fromIntegral iterations
+        totalDiffSquared = sum $ map (\x -> (x - mean) * (x - mean)) fitnesses
         deviation = sqrt $ totalDiffSquared / fromIntegral iterations
 
     putStrLn "--------------------------------------------"
-    putStrLn $ "Minimum: " ++ show (minimum results)
-    putStrLn $ "Maximum: " ++ show (maximum results)
-    putStrLn $ "Average: " ++ show mean
+    putStrLn $ "Minimum Fitness: " ++ show (minimum fitnesses)
+    putStrLn $ "Maximum Fitness: " ++ show (maximum fitnesses)
+    putStrLn $ "Average Fitness: " ++ show mean
     putStrLn $ "Standard Deviation: " ++ show deviation
     putStrLn "--------------------------------------------"
 
