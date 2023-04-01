@@ -127,7 +127,7 @@ runUntilOptimal settings = go (genInitialPopulation settings) 0
 
 visualize :: [[Point]] -> Matplotlib
 visualize [] = undefined
-visualize points = go points 0 $ xlabel "Run #"
+visualize points = go points 0 $ title "Genetic Algorithm Experiments"
     where go :: [[Point]] -> Int -> Matplotlib -> Matplotlib
           go [] _ acc = acc
           go (pt:pts) n acc = go pts (n + 1) $ acc % line xs ys @@ [o2 "label" ("EXP " ++ show n)]
