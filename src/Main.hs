@@ -140,7 +140,7 @@ main = do
         test1 = GASettings { mutationRate = 0, 
                              crossoverRate = 1, 
                              crossoverType = SinglePoint, 
-                             elitism = 1, 
+                             elitism = 25, 
                              popSize = 50,
                              gens = 0 }
 
@@ -151,7 +151,7 @@ main = do
                              popSize = 50,
                              gens = 0 }
 
-        test3 = GASettings { mutationRate = 1,
+        test3 = GASettings { mutationRate = 0.01,
                              crossoverRate = 0.8,
                              crossoverType = SinglePoint,
                              elitism = 0,
@@ -187,7 +187,7 @@ main = do
     results5 <- replicateM runs $ runUntilOptimal test5 
     putStrLn "Finished EXP 4"
 
-    let points1 = zip [1..runs] results1
+    let points1 = zip [1..] results1
         points2 = zip [1..] results2
         points3 = zip [1..] results3
         points4 = zip [1..] results4
