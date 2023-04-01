@@ -152,7 +152,7 @@ main = do
                              gens = 0 }
 
         test3 = GASettings { mutationRate = 0.01,
-                             crossoverRate = 0.8,
+                             crossoverRate = 0.2,
                              crossoverType = SinglePoint,
                              elitism = 0,
                              popSize = 50,
