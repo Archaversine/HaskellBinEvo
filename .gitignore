@@ -1,3 +1,4 @@
+*.bak
 *.hi
 *.o
 Main

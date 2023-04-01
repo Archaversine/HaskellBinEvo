@@ -18,7 +18,7 @@ executable BinaryEvolution
   hs-source-dirs:      src
   main-is:             Main.hs
   default-language:    Haskell2010
-  build-depends:       base >= 4.7 && < 5, random, parallel
+  build-depends:       base >= 4.7 && < 5, random, matplotlib
   ghc-options:         -Wall
                        -Wcompat
                        -Widentities
