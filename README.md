@@ -52,6 +52,29 @@ crossed, and then mutated which yields the child for the next generation.
 
 ## Results
 
+### Visualization
+
+Using the matplotlib bindings for Haskell, a simple visualization can be
+generated that shows how different parameters affect the efficiency of the
+genetic algorithm.
+
+Here are the details for each experiement:
+
+|  | Mutation Rate | Crossover Rate | Crossover Type | Elitism | Population Size |
+|---|---|---|---|---|---|
+| EXP 0 | 0% | 100% | Single Point | Top 25 | 50 |
+| EXP 1 | 100% | 80% | Single Point | Top 1 | 50 |
+| EXP 2 | 1% | 20% | Single Point | None | 50 |
+| EXP 3 | 50% | 80% | Single Point | Top 1 | 50 |
+| EXP 4 | 10% | 100% | Single Point | 0 | 100 |
+
+And here is a graph of the results showing how long it took each strategy to
+reach the optimal solution (all 1s):
+
+![Graph](https://raw.githubusercontent.com/Archaversine/HaskellBinEvo/main/visualization.svg) 
+
+### Results from an Efficient Strategy
+
 Sample results from running the program:
 
 ```
